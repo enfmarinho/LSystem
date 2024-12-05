@@ -9,15 +9,15 @@ def read_render_input():
         int(input("Número de reescritas: ")),
         int(input("Ângulo: ")),
         float(input("Incremento da largura: ")),
-        input("L-System: "),
+        list(input("L-System: ")),
     )
 
 
 def read_check_input():
     return (
         int(input("Número de reescritas: ")),
-        input("L-System: "),
-        input("L-System esperado: "),
+        list(input("L-System: ")),
+        list(input("L-System esperado: ")),
     )
 
 
@@ -62,7 +62,7 @@ def main():
 
         l_system = ls.apply_production_rules(l_system, read_rules(), n_iterations)
 
-        print(f"L-System após {n_iterations} reescritas: {l_system}")
+        print(f"L-System após {n_iterations} reescritas: {''.join(l_system)}")
 
         Renderer(angle, width_increment).render(l_system)
 
