@@ -36,8 +36,8 @@ class Renderer:
         t.color(current_state.color)
         t.pensize(current_state.tickness)
 
-    def render(self, string):
-        for char in string:
+    def render(self, l_system):
+        for char in l_system:
             if char == "+" or char == "-":
                 ALPHABET[char](self.angle)
             elif char == "T" or char == "t":

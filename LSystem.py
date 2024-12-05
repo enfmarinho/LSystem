@@ -1,9 +1,9 @@
 from alphabet import ALPHABET
 
 
-# Check if string contains only valid characters, i.e. characters in the alphabet
-def validate(string):
-    for char in string:
+# Check if l_system string contains only valid characters, i.e. characters in the alphabet
+def validate(l_system):
+    for char in l_system:
         if char not in ALPHABET:
             return False
 
