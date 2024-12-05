@@ -23,7 +23,7 @@ class Renderer:
         t.exitonclick()
 
     def stack(self):
-        state = State(t.position(), t.heading(), t.color(), t.pensize())
+        state = State(t.position(), t.heading(), t.pencolor(), t.pensize())
         self.m_stack.append(state)
         self.position = t.position()
         self.heading = t.heading()
@@ -38,7 +38,11 @@ class Renderer:
 
     def render(self, l_system):
         for char in l_system:
-            if char == "+" or char == "-":
+            if char == "[":
+                self.stack()
+            elif char == "]":
+                self.unstack()
+            elif char == "+" or char == "-":
                 ALPHABET[char](self.angle)
             elif char == "T" or char == "t":
                 ALPHABET[char](self.current_width, self.width_increment)
