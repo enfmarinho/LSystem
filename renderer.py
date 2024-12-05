@@ -1,15 +1,7 @@
 import turtle as t
+from collections import namedtuple
 
 from alphabet import ALPHABET
-
-
-# TODO probably this should be a named tuple
-class State:
-    def __init__(self, position, heading, color, tickness):
-        self.position = position
-        self.direction = heading
-        self.color = color
-        self.tickness = tickness
 
 
 class Renderer:
@@ -23,7 +15,13 @@ class Renderer:
         t.exitonclick()
 
     def stack(self):
-        state = State(t.position(), t.heading(), t.pencolor(), t.pensize())
+        State = namedtuple("State", ["position", "direction", "color", "tickness"])
+        state = State(
+            position=t.position(),
+            direction=t.heading(),
+            color=t.pencolor(),
+            tickness=t.pensize(),
+        )
         self.m_stack.append(state)
         self.position = t.position()
         self.heading = t.heading()
