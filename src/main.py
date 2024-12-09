@@ -8,7 +8,6 @@ def read_render_input():
     return (
         int(input("Número de reescritas: ")),
         int(input("Ângulo: ")),
-        float(input("Incremento da largura: ")),
         list(input("L-System: ")),
     )
 
@@ -54,7 +53,7 @@ def main():
             )
 
     elif argv[1] == "renderizar":
-        n_iterations, angle, width_increment, l_system = read_render_input()
+        n_iterations, angle, l_system = read_render_input()
 
         if not ls.validate(l_system):
             print("Cadeia de caracteres L-System inválida!")
@@ -64,7 +63,7 @@ def main():
 
         print(f"L-System após {n_iterations} reescritas: {''.join(l_system)}")
 
-        Renderer(angle, width_increment).render(l_system)
+        Renderer(angle).render(l_system)
 
     else:
         print("Argumento inválido!")

@@ -3,13 +3,14 @@ from collections import namedtuple
 
 from alphabet import ALPHABET
 
+WIDTH_INCREMENT = 1
+
 
 class Renderer:
-    def __init__(self, angle, width_increment):
+    def __init__(self, angle):
         self.m_stack = []
         self.current_width = 1
         self.angle = angle
-        self.width_increment = width_increment
 
     def __del__(self):
         t.exitonclick()
@@ -43,6 +44,6 @@ class Renderer:
             elif char == "+" or char == "-":
                 ALPHABET[char](self.angle)
             elif char == "T" or char == "t":
-                ALPHABET[char](self.current_width, self.width_increment)
+                ALPHABET[char](self.current_width, WIDTH_INCREMENT)
             else:
                 ALPHABET[char]()
