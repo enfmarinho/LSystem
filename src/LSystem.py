@@ -10,11 +10,6 @@ def validate(l_system):
     return True
 
 
-def insert_string_in_list(list, string):
-    for char in string:
-        list.append(char)
-
-
 # l_system is a list of chars instead of string because strings are
 # immutable, which would cause a lot of memory copies when dealing with
 def apply_production_rules(l_system, rules, n_iterations):
@@ -22,10 +17,10 @@ def apply_production_rules(l_system, rules, n_iterations):
         return l_system
 
     next_iteration_l_system = []
-    for char in l_system:
-        if char in rules:
-            insert_string_in_list(next_iteration_l_system, rules[char])
+    for variable in l_system:
+        if variable in rules:
+            next_iteration_l_system.extend(rules[variable])
         else:
-            next_iteration_l_system.append(char)
+            next_iteration_l_system.append(variable)
 
     return apply_production_rules(next_iteration_l_system, rules, n_iterations - 1)
