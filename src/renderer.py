@@ -9,7 +9,7 @@ WIDTH_INCREMENT = 1
 class Renderer:
     def __init__(self, angle):
         self.m_stack = []
-        self.current_width = 1
+        self.current_width = 2
         self.angle = angle
 
     def __del__(self):
