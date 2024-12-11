@@ -12,26 +12,39 @@ def validate(l_system):
 
 def check(l_system, string, rules, n_iterations):
     stack = []
-    stack.extend(l_system[::-1])
+    las_sub_stack = []
+    for variable in l_system:
+        stack.append(variable)
+        las_sub_stack.append(0)
 
     string_idx = 0
-    last_sub = 0
     counter = 0
+    max_counter = 0
     while stack:
         t = stack.pop()
+        last_sub = las_sub_stack.pop()
+
         if string_idx >= len(string):
             return False
-        elif t in rules and counter < n_iterations:
+        elif t in rules and counter <= n_iterations:
             if len(stack) > last_sub:
+                max_counter = max(max_counter, counter)
                 counter += 1
-            stack.extend(rules[t][::-1])
+            elif last_sub <= len(stack):
+                max_counter = max(max_counter, counter)
+                counter -= 1
+
             last_sub = len(stack)
+            for variable in reversed(rules[t]):
+                stack.append(variable)
+                las_sub_stack.append(last_sub)
+
         elif string[string_idx] == t:
             string_idx += 1
         else:
             return False
 
-    return string_idx == len(string) and counter == n_iterations
+    return string_idx == len(string) and max_counter == n_iterations
 
 
 # l_system is a list of chars instead of string because strings are
