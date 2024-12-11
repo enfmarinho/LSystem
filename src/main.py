@@ -16,7 +16,7 @@ def read_check_input():
     return (
         int(input("Número de reescritas: ")),
         list(input("L-System: ")),
-        list(input("L-System esperado: ")),
+        list(input("String: ")),
     )
 
 
@@ -40,10 +40,9 @@ def main():
         return False
 
     elif argv[1] == "checar":
-        n_iterations, l_system, expected_l_system = read_check_input()
-        final_l_system = ls.apply_production_rules(l_system, read_rules(), n_iterations)
+        n_iterations, l_system, string = read_check_input()
 
-        if final_l_system == expected_l_system:
+        if ls.check(l_system, string, read_rules(), n_iterations):
             print(
                 f"Verdadeiro: O L-System esperado é equivalente ao L-System após {n_iterations} reescritas"
             )
