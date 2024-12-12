@@ -9,42 +9,42 @@ def validate(l_system):
 
     return True
 
-
-def check(l_system, string, rules, n_iterations):
+def check(axiom, string, rules, n_iterations):
     stack = []
-    las_sub_stack = []
-    for variable in l_system:
-        stack.append(variable)
-        las_sub_stack.append(0)
+    stack.extend(reversed(axiom))
+    stack_height_after_sub = -1
 
-    string_idx = 0
-    counter = 0
-    max_counter = 0
+    max_height_reached = 0
+    curr_height = 0  
+    sidx = 0 # string current index
     while stack:
-        t = stack.pop()
-        last_sub = las_sub_stack.pop()
+        top = stack.pop()
 
-        if string_idx >= len(string):
-            return False
-        elif t in rules and counter <= n_iterations:
-            if len(stack) > last_sub:
-                max_counter = max(max_counter, counter)
-                counter += 1
-            elif last_sub <= len(stack):
-                max_counter = max(max_counter, counter)
-                counter -= 1
-
-            last_sub = len(stack)
-            for variable in reversed(rules[t]):
-                stack.append(variable)
-                las_sub_stack.append(last_sub)
-
-        elif string[string_idx] == t:
-            string_idx += 1
+        if top in rules and curr_height < n_iterations:
+            stack.extend(reversed(rules[top]))
+            # add_to_stack(stack, rules[top])
+            stack_height_after_sub = len(stack)
+            curr_height += 1
+            max_height_reached = max(max_height_reached, curr_height)
+        elif top == string[sidx]:
+            sidx += 1
         else:
             return False
 
-    return string_idx == len(string) and max_counter == n_iterations
+        if len(stack) < stack_height_after_sub:
+            curr_height -= 1
+            curr_height = min(curr_height, 0)
+
+    # Check if got to the asked tree height and to the end of the string
+    return (max_height_reached == n_iterations or all_terminal_nodes(string, rules)) and sidx == len(string)
+
+
+def all_terminal_nodes(string, rules):
+    for variable in string:
+        if variable in rules:
+            return False
+
+    return True
 
 
 # l_system is a list of chars instead of string because strings are
