@@ -45,14 +45,6 @@ def check_aux(string, rules, n_iterations, stack):
     return False
 
 
-def all_constants(string, rules):
-    for variable in string:
-        if variable in rules:
-            return False
-
-    return True
-
-
 # l_system is a list of chars instead of string because strings are
 # immutable, which would cause a lot of memory copies when dealing with
 def apply_production_rules(l_system, rules, n_iterations):
