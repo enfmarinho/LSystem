@@ -12,34 +12,32 @@ def validate(l_system):
 def check(axiom, string, rules, n_iterations):
     stack = []
     stack.extend(reversed(axiom))
-    stack_height_after_sub = -1
+
+    nodes_height = []
+    for count in range(len(stack)):
+        nodes_height.append(0)
 
     max_height_reached = 0
-    curr_height = 0  
-    sidx = 0 # string current index
+    string_idx = 0
     while stack:
         top = stack.pop()
+        top_height = nodes_height.pop()
 
-        if top in rules and curr_height < n_iterations:
+        if top in rules and top_height < n_iterations:
             stack.extend(reversed(rules[top]))
-            # add_to_stack(stack, rules[top])
-            stack_height_after_sub = len(stack)
-            curr_height += 1
-            max_height_reached = max(max_height_reached, curr_height)
-        elif top == string[sidx]:
-            sidx += 1
+            for count in range(len(rules[top])):
+                nodes_height.append(top_height + 1)
+            max_height_reached = max(max_height_reached, top_height + 1)
+        elif top == string[string_idx]:
+            string_idx += 1
         else:
             return False
 
-        if len(stack) < stack_height_after_sub:
-            curr_height -= 1
-            curr_height = min(curr_height, 0)
-
     # Check if got to the asked tree height and to the end of the string
-    return (max_height_reached == n_iterations or all_terminal_nodes(string, rules)) and sidx == len(string)
+    return (max_height_reached == n_iterations or all_constants(string, rules)) and string_idx == len(string)
 
 
-def all_terminal_nodes(string, rules):
+def all_constants(string, rules):
     for variable in string:
         if variable in rules:
             return False
