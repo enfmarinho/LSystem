@@ -9,6 +9,7 @@ def validate(l_system):
 
     return True
 
+
 def check_rec(axiom, string, rules, n_iterations):
     stack = []
     stack.extend(reversed(axiom))
@@ -17,7 +18,10 @@ def check_rec(axiom, string, rules, n_iterations):
     for count in range(len(stack)):
         nodes_heights.append(0)
 
-    return check_aux(list(reversed(string)), rules, n_iterations, stack, nodes_heights, 0)
+    return check_aux(
+        list(reversed(string)), rules, n_iterations, stack, nodes_heights, 0
+    )
+
 
 def check_aux(string, rules, n_iterations, stack, nodes_heights, max_height_reached):
     if not stack or not string:
@@ -31,9 +35,13 @@ def check_aux(string, rules, n_iterations, stack, nodes_heights, max_height_reac
         for count in range(len(rules[top])):
             nodes_heights.append(top_height + 1)
         max_height_reached = max(max_height_reached, top_height + 1)
-        return check_aux(string, rules, n_iterations, stack, nodes_heights, max_height_reached)
+        return check_aux(
+            string, rules, n_iterations, stack, nodes_heights, max_height_reached
+        )
     elif top == string.pop():
-        return check_aux(string, rules, n_iterations, stack, nodes_heights, max_height_reached)
+        return check_aux(
+            string, rules, n_iterations, stack, nodes_heights, max_height_reached
+        )
 
     return False
 
@@ -63,7 +71,9 @@ def check(axiom, string, rules, n_iterations):
             return False
 
     # Check if got to the asked tree height and to the end of the string
-    return (max_height_reached == n_iterations or all_constants(string, rules)) and string_idx == len(string)
+    return (
+        max_height_reached == n_iterations or all_constants(string, rules)
+    ) and string_idx == len(string)
 
 
 def all_constants(string, rules):
