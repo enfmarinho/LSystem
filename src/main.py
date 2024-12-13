@@ -56,7 +56,7 @@ def main():
     elif argv[1] == "checar":
         n_iterations, l_system, string = read_check_input()
 
-        if ls.check_rec(l_system, string, read_multiple_rules(), n_iterations):
+        if ls.check(l_system, string, read_multiple_rules(), n_iterations):
             print(
                 f"Verdadeiro: O L-System esperado é equivalente ao L-System após {n_iterations} reescritas"
             )
