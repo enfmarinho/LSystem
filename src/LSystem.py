@@ -18,30 +18,36 @@ def check_rec(axiom, string, rules, n_iterations):
     for count in range(len(stack)):
         nodes_heights.append(0)
 
-    return check_aux(
-        list(reversed(string)), rules, n_iterations, stack, nodes_heights, 0
-    )
+    return check_aux(list(reversed(string)), rules, n_iterations, stack, nodes_heights)
 
 
-def check_aux(string, rules, n_iterations, stack, nodes_heights, max_height_reached):
+def check_aux(string, rules, n_iterations, stack, nodes_heights):
     if not stack or not string:
-        return (not stack) and (not string)
+        return not stack and not string
 
     top = stack.pop()
     top_height = nodes_heights.pop()
 
     if top in rules and top_height < n_iterations:
-        stack.extend(reversed(rules[top]))
-        for count in range(len(rules[top])):
-            nodes_heights.append(top_height + 1)
-        max_height_reached = max(max_height_reached, top_height + 1)
-        return check_aux(
-            string, rules, n_iterations, stack, nodes_heights, max_height_reached
-        )
+        for rule in rules[top]:
+            string_cp = string.copy()
+            stack_cp = stack.copy()
+            nodes_heights_cp = nodes_heights.copy()
+
+            stack_cp.extend(reversed(rule))
+            for count in range(len(rule)):
+                nodes_heights_cp.append(top_height + 1)
+
+            if check_aux(
+                string_cp,
+                rules,
+                n_iterations,
+                stack_cp,
+                nodes_heights_cp,
+            ):
+                return True
     elif top == string.pop():
-        return check_aux(
-            string, rules, n_iterations, stack, nodes_heights, max_height_reached
-        )
+        return check_aux(string, rules, n_iterations, stack, nodes_heights)
 
     return False
 
