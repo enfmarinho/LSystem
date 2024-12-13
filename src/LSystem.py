@@ -9,24 +9,53 @@ def validate(l_system):
 
     return True
 
+def check_rec(axiom, string, rules, n_iterations):
+    stack = []
+    stack.extend(reversed(axiom))
+
+    nodes_heights = []
+    for count in range(len(stack)):
+        nodes_heights.append(0)
+
+    return check_aux(list(reversed(string)), rules, n_iterations, stack, nodes_heights, 0)
+
+def check_aux(string, rules, n_iterations, stack, nodes_heights, max_height_reached):
+    if not stack or not string:
+        return (not stack) and (not string)
+
+    top = stack.pop()
+    top_height = nodes_heights.pop()
+
+    if top in rules and top_height < n_iterations:
+        stack.extend(reversed(rules[top]))
+        for count in range(len(rules[top])):
+            nodes_heights.append(top_height + 1)
+        max_height_reached = max(max_height_reached, top_height + 1)
+        return check_aux(string, rules, n_iterations, stack, nodes_heights, max_height_reached)
+    elif top == string.pop():
+        return check_aux(string, rules, n_iterations, stack, nodes_heights, max_height_reached)
+
+    return False
+
+
 def check(axiom, string, rules, n_iterations):
     stack = []
     stack.extend(reversed(axiom))
 
-    nodes_height = []
+    nodes_heights = []
     for count in range(len(stack)):
-        nodes_height.append(0)
+        nodes_heights.append(0)
 
     max_height_reached = 0
     string_idx = 0
     while stack:
         top = stack.pop()
-        top_height = nodes_height.pop()
+        top_height = nodes_heights.pop()
 
         if top in rules and top_height < n_iterations:
             stack.extend(reversed(rules[top]))
             for count in range(len(rules[top])):
-                nodes_height.append(top_height + 1)
+                nodes_heights.append(top_height + 1)
             max_height_reached = max(max_height_reached, top_height + 1)
         elif top == string[string_idx]:
             string_idx += 1
