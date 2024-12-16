@@ -49,7 +49,7 @@ def check_aux(string, rules, n_iterations, stack):
 # immutable, which would cause a lot of memory copies when dealing with
 def apply_production_rules(l_systems, rules, n_iterations):
     if isinstance(l_systems, str):
-        l_systems = list(l_systems)
+        l_systems = [l_systems]
 
     for counter in range(n_iterations):
         l_systems_cp = l_systems.copy()
@@ -75,7 +75,7 @@ def apply_rules(string, rules, start_index):
         else:
             new_string.append(variable)
 
-    return new_string
+    return [new_string]
 
 
 def append_list(prefix, string_list):
