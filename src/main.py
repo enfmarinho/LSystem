@@ -8,15 +8,15 @@ def read_render_input():
     return (
         int(input("Número de reescritas: ")),
         int(input("Ângulo: ")),
-        list(input("L-System: ")),
+        input("L-System: "),
     )
 
 
 def read_check_input():
     return (
         int(input("Número de reescritas: ")),
-        list(input("L-System: ")),
-        list(input("String: ")),
+        input("L-System: "),
+        input("String: "),
     )
 
 

@@ -11,6 +11,11 @@ def validate(l_system):
 
 
 def check(axiom, string, rules, n_iterations):
+    if isinstance(axiom, str):
+        axiom = list(axiom)
+    if isinstance(string, str):
+        string = list(string)
+
     stack = []
     for variable in reversed(axiom):
         stack.append((variable, 0))
