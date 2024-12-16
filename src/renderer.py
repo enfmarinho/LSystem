@@ -9,7 +9,7 @@ WIDTH_INCREMENT = 1
 class Renderer:
     def __init__(self, angle):
         self.m_stack = []
-        self.current_width = 2
+        self.current_line_width = 2
         self.angle = angle
 
     def __del__(self):
@@ -36,14 +36,14 @@ class Renderer:
         t.pensize(current_state.tickness)
 
     def render(self, l_system):
-        for char in l_system:
-            if char == "[":
+        for variable in l_system:
+            if variable == "[":
                 self.stack()
-            elif char == "]":
+            elif variable == "]":
                 self.unstack()
-            elif char == "+" or char == "-":
-                ALPHABET[char](self.angle)
-            elif char == "T" or char == "t":
-                ALPHABET[char](self.current_width, WIDTH_INCREMENT)
+            elif variable == "+" or variable == "-":
+                ALPHABET[variable](self.angle)
+            elif variable == "T" or variable == "t":
+                ALPHABET[variable](self.current_line_width, WIDTH_INCREMENT)
             else:
-                ALPHABET[char]()
+                ALPHABET[variable]()

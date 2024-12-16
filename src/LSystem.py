@@ -66,24 +66,24 @@ def apply_production_rules(l_systems, rules, n_iterations):
 
 
 def apply_rules(string, rules, start_index):
-    new_string = []
+    final_string = []
     for index in range(start_index, len(string)):
         variable = string[index]
         if variable in rules:
-            l_system_list = []
+            final_string_list = []
             for rule in rules[variable]:
                 string_list = apply_rules(string, rules, index + 1)
-                string_a = new_string.copy()
-                string_a.extend(rule)
-                l_system_list.extend(append_list(string_a, string_list))
-            return l_system_list
+                string_cp = final_string.copy()
+                string_cp.extend(rule)
+                final_string_list.extend(add_prefix(string_cp, string_list))
+            return final_string_list
         else:
-            new_string.append(variable)
+            final_string.append(variable)
 
-    return [new_string]
+    return [final_string]
 
 
-def append_list(prefix, string_list):
+def add_prefix(prefix, string_list):
     final_list = []
     for string in string_list:
         prefix.extend(string)

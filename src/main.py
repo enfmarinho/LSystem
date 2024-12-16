@@ -8,14 +8,14 @@ def read_render_input():
     return (
         int(input("Número de reescritas: ")),
         int(input("Ângulo: ")),
-        input("L-System: "),
+        input("Axioma: "),
     )
 
 
 def read_check_input():
     return (
         int(input("Número de reescritas: ")),
-        input("L-System: "),
+        input("Axioma: "),
         input("String: "),
     )
 
@@ -40,30 +40,28 @@ def main():
         return False
 
     elif argv[1] == "checar":
-        n_iterations, l_system, string = read_check_input()
+        n_iterations, axiom, string = read_check_input()
 
-        if ls.check(l_system, string, read_rules(), n_iterations):
+        if ls.check(axiom, string, read_rules(), n_iterations):
             print(
-                f"Verdadeiro: O L-System esperado é equivalente ao L-System após {n_iterations} reescritas"
+                f"Verdadeiro: O L-System esperado corresponde ao L-System após {n_iterations} reescritas"
             )
         else:
             print(
-                f"Falso: O LSystem esperado não é equivalente ao LSystem após {n_iterations} reescritas"
+                f"Falso: O LSystem esperado não corresponde ao LSystem após {n_iterations} reescritas"
             )
 
     elif argv[1] == "renderizar":
-        n_iterations, angle, l_system = read_render_input()
+        n_iterations, angle, axiom = read_render_input()
 
-        if not ls.validate(l_system):
+        if not ls.validate(axiom):
             print("Cadeia de caracteres L-System inválida!")
             return False
 
-        l_systems = ls.apply_production_rules(
-            [l_system], read_rules(), n_iterations
-        )
+        l_systems = ls.apply_production_rules(axiom, read_rules(), n_iterations)
 
         print(f"L-System a ser renderizado: {''.join(l_systems[0])}")
-        Renderer(angle).render(l_system)
+        Renderer(angle).render(axiom)
 
     else:
         print("Argumento inválido!")
