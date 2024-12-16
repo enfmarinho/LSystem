@@ -35,7 +35,7 @@ def test_check_and_apply_production_rules():
     assert ls.apply_production_rules("F-fbFg-f", rules, 3) == list("r+rrrg+r")
 
     rules.clear()
-    rules["F"] = "+f"
+    rules["F"] = ["+f"]
     assert ls.check("F", "+f", rules, 1)
     assert ls.apply_production_rules("F", rules, 5) == list("+f")
 
