@@ -41,7 +41,6 @@ def read_multiple_rules():
     while True:
         line = input("Regra: ")
         if line == "":
-            print(rules)
             return rules
         strings = line.split("->", 1)
         rules.setdefault(strings[0], []).append(strings[1])
