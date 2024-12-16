@@ -71,9 +71,10 @@ def main():
             print("Cadeia de caracteres L-System inválida!")
             return False
 
-        l_system = ls.apply_production_rules(l_system, read_rules(), n_iterations)
-
-        print(f"L-System após {n_iterations} reescritas: {''.join(l_system)}")
+        l_systems = ls.apply_production_rules(
+            [l_system], read_multiple_rules(), n_iterations
+        )
+        print(f"L-System após {n_iterations} reescritas: {''.join(l_systems[0])}")
 
         Renderer(angle).render(l_system)
 

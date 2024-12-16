@@ -47,15 +47,43 @@ def check_aux(string, rules, n_iterations, stack):
 
 # l_system is a list of chars instead of string because strings are
 # immutable, which would cause a lot of memory copies when dealing with
-def apply_production_rules(l_system, rules, n_iterations):
-    if n_iterations == 0:
-        return l_system
+def apply_production_rules(l_systems, rules, n_iterations):
+    if isinstance(l_systems, str):
+        l_systems = list(l_systems)
 
-    next_iteration_l_system = []
-    for variable in l_system:
+    for counter in range(n_iterations):
+        l_systems_cp = l_systems.copy()
+        l_systems.clear()
+        for l_system in l_systems_cp:
+            l_systems.extend(apply_rules(l_system, rules, 0))
+
+    return l_systems
+
+
+def apply_rules(string, rules, start_index):
+    new_string = []
+    for index in range(start_index, len(string)):
+        variable = string[index]
         if variable in rules:
-            next_iteration_l_system.extend(rules[variable])
+            l_system_list = []
+            for rule in rules[variable]:
+                string_list = apply_rules(string, rules, index + 1)
+                string_a = new_string.copy()
+                string_a.extend(rule)
+                l_system_list.extend(append_list(string_a, string_list))
+            return l_system_list
         else:
-            next_iteration_l_system.append(variable)
+            new_string.append(variable)
 
-    return apply_production_rules(next_iteration_l_system, rules, n_iterations - 1)
+    return new_string
+
+
+def append_list(prefix, string_list):
+    final_list = []
+    for string in string_list:
+        prefix.extend(string)
+        final_list.append(prefix)
+
+    if final_list == []:
+        return prefix
+    return final_list
