@@ -30,19 +30,6 @@ def read_rules():
         if line == "":
             return rules
         strings = line.split("->", 1)
-        rules[strings[0]] = strings[1]
-
-
-def read_multiple_rules():
-    print("Escreva as regras a seguir no seguinte formato: char->string")
-    print("Quando não houver mais regras deixe a linha em branco!")
-
-    rules = {}
-    while True:
-        line = input("Regra: ")
-        if line == "":
-            return rules
-        strings = line.split("->", 1)
         rules.setdefault(strings[0], []).append(strings[1])
 
 
@@ -55,7 +42,7 @@ def main():
     elif argv[1] == "checar":
         n_iterations, l_system, string = read_check_input()
 
-        if ls.check(l_system, string, read_multiple_rules(), n_iterations):
+        if ls.check(l_system, string, read_rules(), n_iterations):
             print(
                 f"Verdadeiro: O L-System esperado é equivalente ao L-System após {n_iterations} reescritas"
             )
@@ -72,10 +59,10 @@ def main():
             return False
 
         l_systems = ls.apply_production_rules(
-            [l_system], read_multiple_rules(), n_iterations
+            [l_system], read_rules(), n_iterations
         )
-        print(f"L-System após {n_iterations} reescritas: {''.join(l_systems[0])}")
 
+        print(f"L-System a ser renderizado: {''.join(l_systems[0])}")
         Renderer(angle).render(l_system)
 
     else:
