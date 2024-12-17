@@ -61,7 +61,7 @@ def main():
         l_systems = ls.apply_production_rules(axiom, read_rules(), n_iterations)
 
         print(f"L-System a ser renderizado: {''.join(l_systems[0])}")
-        Renderer(angle).render(axiom)
+        Renderer(angle).render(l_systems[0])
 
     else:
         print("Argumento inválido!")
