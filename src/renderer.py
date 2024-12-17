@@ -11,6 +11,7 @@ class Renderer:
         self.m_stack = []
         self.current_line_width = 2
         self.angle = angle
+        t.speed(5)
 
     def __del__(self):
         t.exitonclick()
