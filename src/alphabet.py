@@ -1,6 +1,6 @@
 import turtle as t
 
-LINE_SIZE = 50
+LINE_SIZE = 30
 ALPHABET = {
     "F": lambda: t.forward(LINE_SIZE),
     "f": lambda: t.forward(LINE_SIZE / 2),
