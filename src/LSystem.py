@@ -60,19 +60,19 @@ def apply_production_rules(l_systems, rules, n_iterations):
         l_systems_cp = l_systems.copy()
         l_systems.clear()
         for l_system in l_systems_cp:
-            l_systems.extend(apply_rules(l_system, rules, 0))
+            l_systems.extend(next_tree_level(l_system, rules))
 
     return l_systems
 
 
-def apply_rules(string, rules, start_index):
+def next_tree_level(string, rules, start_index=0):
     final_string = []
     for index in range(start_index, len(string)):
         variable = string[index]
         if variable in rules:
             final_string_list = []
             for rule in rules[variable]:
-                string_list = apply_rules(string, rules, index + 1)
+                string_list = next_tree_level(string, rules, index + 1)
                 string_cp = final_string.copy()
                 string_cp.extend(rule)
                 final_string_list.extend(add_prefix(string_cp, string_list))
